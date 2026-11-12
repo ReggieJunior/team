@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TEAM: 5 Claudes review your code</title>
+<meta name="description" content="A free prompt: a team of 5 Claudes reviews your code before you ship it. Paste it into Claude Code.">
+<meta property="og:title" content="TEAM: 5 Claudes review your code before you ship it">
+<meta property="og:description" content="Free prompt for Claude Code. Copy, paste, get a verdict and a fix list.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4efe6; --bg2:#ece4d6; --ink:#1d1a16; --muted:#6b6257; --gold:#b8892f; --gold2:#d9b25c;
+  --card:rgba(255,255,255,.62); --line:rgba(120,96,60,.18); --code:#1f1c18; --codeink:#efe7da;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:
+  radial-gradient(1200px 600px at 85% -10%,rgba(217,178,92,.22),transparent 60%),
+  radial-gradient(900px 500px at -10% 30%,rgba(255,255,255,.9),transparent 60%),
+  linear-gradient(180deg,var(--bg),var(--bg2));min-height:100vh;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.brand{font-weight:700;letter-spacing:.02em;font-size:14px}
+.brand b{color:var(--gold)}
+.pill{font-size:12px;font-weight:600;color:var(--gold);border:1px solid var(--line);background:var(--card);padding:6px 12px;border-radius:99px;text-decoration:none;backdrop-filter:blur(8px)}
+.hero{padding:34px 0 18px;text-align:center}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+h1{font-family:"DM Serif Display",serif;font-weight:400;font-size:clamp(34px,7vw,56px);line-height:1.05;letter-spacing:-.01em}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--gold),var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{margin:16px auto 0;max-width:520px;color:var(--muted);font-size:17px}
+.free{margin-top:14px;font-size:13px;color:var(--muted)}
+.free b{color:var(--ink)}
+.panel{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:30px 0 8px}
+.rev{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 8px;text-align:center;backdrop-filter:blur(10px);box-shadow:0 10px 30px -18px rgba(80,60,20,.35)}
+.rev .e{font-size:30px;line-height:1}
+.rev .n{font-weight:700;font-size:13px;margin-top:8px}
+.rev .d{font-size:11.5px;color:var(--muted);margin-top:4px;line-height:1.35}
+.rev.boss{border-color:rgba(184,137,47,.55);background:linear-gradient(180deg,rgba(255,248,232,.85),rgba(255,255,255,.6))}
+section.step{margin:34px 0}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.num{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--gold),var(--gold2));box-shadow:0 6px 16px -6px rgba(184,137,47,.7)}
+h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:28px;line-height:1.1}
+.how{color:var(--muted);margin:0 0 14px 46px;font-size:15px}
+.how code{font-family:"JetBrains Mono",monospace;font-size:13px;background:rgba(184,137,47,.12);padding:1px 6px;border-radius:6px;color:var(--ink)}
+.box{position:relative;background:var(--code);color:var(--codeink);border-radius:18px;box-shadow:0 20px 50px -25px rgba(30,20,5,.55);overflow:hidden}
+.bar{display:flex;justify-content:space-between;align-items:center;padding:10px 12px 10px 16px;border-bottom:1px solid rgba(255,255,255,.07)}
+.dots{display:flex;gap:6px}.dots i{width:10px;height:10px;border-radius:50%;background:#3a352e}
+.dots i:first-child{background:#e0a03a}
+.copy{font:600 13px Inter,sans-serif;border:0;cursor:pointer;color:#1d1a16;background:linear-gradient(135deg,var(--gold2),#f0d595);padding:8px 16px;border-radius:99px;transition:transform .15s}
+.copy:active{transform:scale(.96)}
+.copy.ok{background:#7fc28a}
+pre{font-family:"JetBrains Mono",monospace;font-size:13px;line-height:1.6;padding:16px 18px 20px;white-space:pre-wrap;word-break:break-word;max-height:420px;overflow:auto}
+pre .ph{color:#f0c46a;font-weight:500}
+.note{display:flex;gap:12px;margin:16px 0 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:14px;color:var(--muted);backdrop-filter:blur(8px)}
+.note b{color:var(--ink)}
+.result{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.6;color:var(--ink)}
+.result .bad{color:#b4412f;font-weight:600}
+.result .lbl{color:var(--muted);font-family:Inter,sans-serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.cta{margin:46px 0 30px;text-align:center;border-radius:24px;padding:34px 22px;background:linear-gradient(160deg,#1f1c18,#2c261e);color:#f4efe6;box-shadow:0 30px 60px -30px rgba(30,20,5,.6)}
+.cta h3{font-family:"DM Serif Display",serif;font-weight:400;font-size:30px;line-height:1.1}
+.cta p{color:#c9bfae;margin:10px auto 20px;max-width:440px}
+.btn{display:inline-block;text-decoration:none;font-weight:700;color:#1d1a16;background:linear-gradient(135deg,var(--gold2),#f0d595);padding:14px 26px;border-radius:99px}
+footer{text-align:center;font-size:12px;color:var(--muted);padding:10px 0 34px}
+footer a{color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,140%);background:#1d1a16;color:#f4efe6;padding:12px 18px;border-radius:14px;font-size:14px;box-shadow:0 16px 40px -14px rgba(0,0,0,.5);transition:transform .35s cubic-bezier(.2,.9,.3,1.2);max-width:calc(100% - 32px);text-align:center;z-index:9}
+.toast.on{transform:translate(-50%,0)}
+.toast a{color:var(--gold2);font-weight:600}
+@media (max-width:640px){
+  .panel{grid-template-columns:repeat(2,1fr)}
+  .rev.boss{grid-column:span 2}
+  .how{margin-left:0}
+  h2{font-size:24px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">REGGIE <b>JUNIOR</b></div>
+    <a class="pill" href="https://www.skool.com/ai-library">AI Library →</a>
+  </div>
+
+  <header class="hero">
+    <div class="tag">Free prompt · Claude Code</div>
+    <h1>A team of <em>5 Claudes</em> reviews your code before you ship it</h1>
+    <p class="sub">A hacker, a confused user, a senior dev, a tester and a boss. Each one checks your code their way, then the boss gives one verdict and a fix list.</p>
+    <p class="free"><b>Takes 1 minute.</b> Copy, paste, done.</p>
+  </header>
+
+  <div class="panel">
+    <div class="rev"><div class="e">🕵️</div><div class="n">The Hacker</div><div class="d">Tries to break in</div></div>
+    <div class="rev"><div class="e">🤷</div><div class="n">The Confused User</div><div class="d">Clicks everything wrong</div></div>
+    <div class="rev"><div class="e">🧠</div><div class="n">The Senior Dev</div><div class="d">Will it hold up in 2 years?</div></div>
+    <div class="rev"><div class="e">🧪</div><div class="n">The Tester</div><div class="d">Actually runs it</div></div>
+    <div class="rev boss"><div class="e">👔</div><div class="n">The Boss</div><div class="d">Ship it, or not yet</div></div>
+  </div>
+
+  <section class="step">
+    <div class="sh"><div class="num">1</div><h2>Call the team</h2></div>
+    <p class="how">Open Claude Code in your project, paste this, and fill in the two <span style="color:var(--gold);font-weight:700">gold</span> parts.</p>
+    <div class="box">
+      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><button class="copy" data-t="p1">Copy prompt</button></div>
+      <pre id="p1">You are a review panel of 5 experts checking my code before I ship it. Review only: do not change any files yet.
+
+What the code does: <span class="ph">[DESCRIBE IT IN ONE SENTENCE]</span>
+What to review: <span class="ph">[THE FILES OR FOLDER, OR PASTE THE CODE HERE]</span>
+
+Each reviewer works on their own first, then reports.
+
+1. THE HACKER tries to break in. Looks for secrets or API keys in the code, input that is never checked, injection (SQL, shell, prompt), missing login or permission checks, unsafe file and URL handling, and private data leaking into logs or error messages.
+
+2. THE CONFUSED USER has never seen this app. Leaves fields empty, types letters where numbers go, pastes emoji, clicks twice, goes back mid-way, loses internet. Reports what breaks, what crashes and what is confusing.
+
+3. THE SENIOR DEV reads it as if they have to maintain it for the next two years. Looks for unclear names, copy-pasted code, functions doing too much, errors that are swallowed, and things that will break as soon as there is more data or more users.
+
+4. THE TESTER runs it. Runs the existing tests; if there are none, writes a few small tests for the most important paths and edge cases and runs them. Reports the exact command used and what passed or failed.
+
+5. THE BOSS reads the four reports, removes duplicates and anything that is not a real problem, and gives ONE verdict: SHIP IT or NOT YET.
+
+Rules for everyone:
+- Every issue names the file and line, says what goes wrong, and gives a one-line fix.
+- No vague advice (&quot;consider improving error handling&quot; is not allowed).
+- Do not invent problems. If a reviewer finds nothing, they say so in one line.
+
+The Boss&#x27;s final answer, in this format:
+
+VERDICT: SHIP IT / NOT YET
+
+FIX LIST (most severe first)
+1. [CRITICAL / HIGH / MEDIUM / LOW] file:line - what goes wrong - the fix
+
+WHAT&#x27;S ALREADY GOOD (up to 3 points)</pre>
+    </div>
+    <div class="result">
+      <div class="lbl">What you get back (real test on a small shop app)</div>
+      <div><b>VERDICT:</b> <span class="bad">NOT YET</span></div>
+<div>1. [CRITICAL] app.py:3 - a live API key is written in the code</div>
+<div>2. [CRITICAL] app.py:17 - SQL injection: anyone can read every customer's orders</div>
+<div>3. [HIGH] app.py:23 - crashes for a customer with no orders</div>
+<div style="color:var(--muted)">... 7 more, each with the exact fix. Tester: 11 tests written, 3 passed, 8 failed.</div>
+    </div>
+    <div class="note"><span>💡</span><div><b>Commit your code first.</b> The team only reviews, it won't change anything. It cuts the risk a lot, but no review catches 100% of bugs.</div></div>
+  </section>
+
+  <section class="step">
+    <div class="sh"><div class="num">2</div><h2>Fix it and review again</h2></div>
+    <p class="how">When the boss says <b>NOT YET</b>, paste this in the same chat.</p>
+    <div class="box">
+      <div class="bar"><div class="dots"><i></i><i></i><i></i></div><button class="copy" data-t="p2">Copy prompt</button></div>
+      <pre id="p2">Now fix everything on the Boss&#x27;s fix list, starting with the most severe.
+- Make the smallest change that fixes each issue. Do not rewrite code that works.
+- After each fix, run the tests again.
+- When you are done, run the full 5-reviewer panel again on the changed code and give me the new verdict and fix list.
+- Repeat until the verdict is SHIP IT or only LOW items are left. Then stop and tell me what you changed and what is left.</pre>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h3>Want more tools like this?</h3>
+    <p>Every prompt, skill and tool I make goes into the AI Library, with step-by-step guides.</p>
+    <a class="btn" href="https://www.skool.com/ai-library">Join the AI Library</a>
+  </section>
+
+  <footer>Made by <a href="https://www.instagram.com/itsreggiejr_">@itsreggiejr_</a> · <a href="https://github.com/ReggieJunior">GitHub</a></footer>
+</div>
+
+<div class="toast" id="toast">Copied ✓ Paste it into Claude Code. More like this in the <a href="https://www.skool.com/ai-library">AI Library</a></div>
+
+<script>
+const toast=document.getElementById('toast');let tt;
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',async()=>{
+  const txt=document.getElementById(b.dataset.t).innerText;
+  try{await navigator.clipboard.writeText(txt)}catch(e){
+    const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(_){}ta.remove()}
+  b.textContent='Copied ✓';b.classList.add('ok');
+  setTimeout(()=>{b.textContent='Copy prompt';b.classList.remove('ok')},2200);
+  toast.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('on'),3800);
+}));
+</script>
+</body>
+</html>
